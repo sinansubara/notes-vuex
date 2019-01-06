@@ -30,11 +30,14 @@ export default {
   },
   methods: {
     addNote() {
-      this.notes.push(this.note);
+      /* this.notes.push(this.note);
       this.note = {
         title: '',
         note: '',
-      };
+      }; */
+      this.notes.push(this.note);
+      window.localStorage.setItem('nesto',JSON.stringify(this.notes));
+      
     },
     removeNote(index) {
       this.notes.splice(index, 1);
