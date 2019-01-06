@@ -30,13 +30,11 @@ export default {
   },
   methods: {
     addNote() {
-      /* this.notes.push(this.note);
-      this.note = {
-        title: '',
-        note: '',
-      }; */
+      if (this.notes === null) {
+        this.notes = [];
+      }
       this.notes.push(this.note);
-      window.localStorage.setItem('nesto', JSON.stringify(this.notes));
+      window.localStorage.setItem('temp', JSON.stringify(this.notes));
     },
     removeNote(index) {
       this.notes.splice(index, 1);
@@ -44,6 +42,9 @@ export default {
     changeNoteValue(newNote) {
       this.note = newNote;
     },
+  },
+  mounted() {
+    this.notes = JSON.parse(window.localStorage.getItem('temp'));
   },
 };
 </script>
