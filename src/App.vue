@@ -1,17 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <InputFields
+      :add-note="addNote"
+      :parent-change-method="changeNoteValue" />
+    <NotesDisplay
+      :notes-to-be-displayed="notes"
+      :parent-remove-method="removeNote" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import InputFields from './components/InputFields.vue';
+import NotesDisplay from './components/NotesDisplay.vue';
 
 export default {
   name: 'app',
+  data() {
+    return {
+      note: {
+        title: '',
+        note: '',
+      },
+      notes: [],
+    };
+  },
   components: {
-    HelloWorld,
+    InputFields,
+    NotesDisplay,
+  },
+  methods: {
+    addNote() {
+      this.notes.push(this.note);
+      this.note = {
+        title: '',
+        note: '',
+      };
+    },
+    removeNote(index) {
+      this.notes.splice(index, 1);
+    },
+    changeNoteValue(newNote) {
+      this.note = newNote;
+    },
   },
 };
 </script>
