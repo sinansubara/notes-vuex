@@ -36,8 +36,7 @@ export default {
         note: '',
       }; */
       this.notes.push(this.note);
-      window.localStorage.setItem('nesto',JSON.stringify(this.notes));
-      
+      window.localStorage.setItem('nesto', JSON.stringify(this.notes));
     },
     removeNote(index) {
       this.notes.splice(index, 1);
