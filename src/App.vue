@@ -46,11 +46,12 @@ export default {
     },
     addNote() {
       if (this.note.note !== '' && this.note.title !== '') {
-        if (this.notes === null) {
+        /* if (this.notes === null) {
           this.notes = [];
         }
         this.notes.push(this.note);
-        window.localStorage.setItem('temp', JSON.stringify(this.notes));
+        window.localStorage.setItem('temp', JSON.stringify(this.notes)); */
+        this.$store.dispatch('dodajNote', this.note);
       }
     },
     removeNote(index) {

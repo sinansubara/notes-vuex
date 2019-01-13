@@ -1,7 +1,7 @@
 <template>
   <div id="notesdisplay">
     <div
-      v-for="(singelNote, index) in notesToBeDisplayed"
+      v-for="(singelNote, index) in vuexNotes"
       :key="index">
       <NoteCard
       :singel-note="singelNote"
@@ -45,6 +45,11 @@ export default {
     NoteCard,
   },
   methods: {
+  },
+  computed: {
+    vuexNotes() {
+      return this.$store.getters.listaBiljeski;
+    },
   },
 };
 </script>
