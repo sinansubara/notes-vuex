@@ -30,7 +30,7 @@ export default {
     },
     parentChangeMethod: {
       type: Function,
-      reguired: true,
+      required: true,
     },
   },
   methods: {

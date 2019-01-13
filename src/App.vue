@@ -31,6 +31,19 @@ export default {
     NotesDisplay,
   },
   methods: {
+    getDate() {
+      const date = new Date();
+      const mjesec = date.getMonth() + 1;
+      //  const datum = date.getDate() + '.' + mjesec + '.' + date.getFullYear();
+      const datum = `${date.getDate()}.${mjesec}.${date.getFullYear()}`;
+      return datum;
+    },
+    getTime() {
+      const date = new Date();
+      //  const datum = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      const datum = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      return datum;
+    },
     addNote() {
       if (this.note.note !== '' && this.note.title !== '') {
         if (this.notes === null) {
@@ -53,6 +66,8 @@ export default {
     editNote(index, /* newTitle, */ newNote) {
       /* this.notes[index].title = newTitle; */
       this.notes[index].note = newNote;
+      this.notes[index].date = this.getDate();
+      this.notes[index].time = this.getTime();
       window.localStorage.setItem('temp', JSON.stringify(this.notes));
     },
   },
