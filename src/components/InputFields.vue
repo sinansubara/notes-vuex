@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="input-wrap">
-      <input type="text" v-model="noteTitle" @keyup="changeNote" />
+      <input type="text" placeholder="Note title" id="inputTitle" class="inputF"
+          v-model="noteTitle" @keyup="changeNote" />
     </div>
     <div class="input-wrap">
-      <input type="textarea" v-model="noteVal" @keyup="changeNote" />
+      <textarea rows="5" cols="60" class="inputF"
+          spellcheck="false" placeholder="Write your note here!"
+          v-model="noteVal" @keyup="changeNote" />
     </div>
     <div class="input-wrap">
-      <button @click="add">Add note</button>
+      <span @click="add" class="button add">ADD NOTE</span>
     </div>
   </div>
 </template>
@@ -31,22 +34,55 @@ export default {
     },
   },
   methods: {
+    getDate() {
+      const date = new Date();
+      const mjesec = date.getMonth() + 1;
+      //  const datum = date.getDate() + '.' + mjesec + '.' + date.getFullYear();
+      const datum = `${date.getDate()}.${mjesec}.${date.getFullYear()}`;
+      return datum;
+    },
+    getTime() {
+      const date = new Date();
+      //  const datum = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      const datum = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      return datum;
+    },
     add() {
       this.addNote();
-      this.noteVal = '';
-      this.noteTitle = '';
+      if (this.noteVal !== '' && this.noteTitle !== '') {
+        this.noteVal = '';
+        this.noteTitle = '';
+        this.parentChangeMethod({
+          title: this.noteTitle,
+          note: this.noteVal,
+        });
+      }
     },
     changeNote() {
       this.parentChangeMethod({
         title: this.noteTitle,
         note: this.noteVal,
+        date: this.getDate(),
+        time: this.getTime(),
       });
     },
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   .input-wrap {
     padding: 5px;
+  }
+  .inputF {
+    font-size: 20px;
+    border: none;
+    padding: 1px 0 0 10px;
+  }
+  textarea {
+    resize: none;
+  }
+  #inputTitle {
+    width: 20%;
+    margin-top: 30px;
   }
 </style>
