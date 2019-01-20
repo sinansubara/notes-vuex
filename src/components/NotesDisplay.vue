@@ -5,10 +5,7 @@
       :key="index">
       <NoteCard
       :singel-note="singelNote"
-      :index="index"
-      :parent-remove-method="parentRemoveMethod"
-      :parent-change-method="parentChangeMethod"
-      :parent-edit-method="parentEditMethod" /><br>
+      :index="index" /><br>
     </div>
   </div>
 </template>
@@ -23,23 +20,6 @@ export default {
     };
   },
   props: {
-    notesToBeDisplayed: {
-      type: Array,
-      required: false,
-      default: () => [],
-    },
-    parentRemoveMethod: {
-      type: Function,
-      required: true,
-    },
-    parentChangeMethod: {
-      type: Function,
-      reguired: true,
-    },
-    parentEditMethod: {
-      type: Function,
-      required: true,
-    },
   },
   components: {
     NoteCard,
@@ -57,7 +37,6 @@ export default {
   #notesdisplay {
     display: flex;
     flex-flow: row wrap;
-    /* align-content: space-between; */
     justify-content: space-between;
   }
 </style>

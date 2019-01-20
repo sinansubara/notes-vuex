@@ -2,12 +2,12 @@
   <div>
     <div class="input-wrap">
       <input type="text" placeholder="Note title" id="inputTitle" class="inputF"
-          v-model="noteTitle" @keyup="changeNote" />
+          v-model="note.titleVal"/>
     </div>
     <div class="input-wrap">
       <textarea rows="5" cols="60" class="inputF"
           spellcheck="false" placeholder="Write your note here!"
-          v-model="noteVal" @keyup="changeNote" />
+          v-model="note.noteVal"/>
     </div>
     <div class="input-wrap">
       <span @click="add" class="button add">ADD NOTE</span>
@@ -19,52 +19,35 @@ export default {
   name: 'InputFields',
   data() {
     return {
-      noteVal: '',
-      noteTitle: '',
+      note: {
+        noteVal: '',
+        titleVal: '',
+      },
     };
-  },
-  props: {
-    addNote: {
-      type: Function,
-      required: true,
-    },
-    parentChangeMethod: {
-      type: Function,
-      required: true,
-    },
   },
   methods: {
     getDate() {
       const date = new Date();
       const mjesec = date.getMonth() + 1;
-      //  const datum = date.getDate() + '.' + mjesec + '.' + date.getFullYear();
       const datum = `${date.getDate()}.${mjesec}.${date.getFullYear()}`;
       return datum;
     },
     getTime() {
       const date = new Date();
-      //  const datum = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       const datum = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
       return datum;
     },
     add() {
-      this.addNote();
-      if (this.noteVal !== '' && this.noteTitle !== '') {
-        this.noteVal = '';
-        this.noteTitle = '';
-        this.parentChangeMethod({
-          title: this.noteTitle,
-          note: this.noteVal,
+      if (this.note.noteVal !== '' && this.note.titleVal !== '') {
+        this.$store.dispatch('dodajNote', {
+          note: this.note.noteVal,
+          title: this.note.titleVal,
+          date: this.getDate(),
+          time: this.getTime(),
         });
+        this.note.noteVal = '';
+        this.note.titleVal = '';
       }
-    },
-    changeNote() {
-      this.parentChangeMethod({
-        title: this.noteTitle,
-        note: this.noteVal,
-        date: this.getDate(),
-        time: this.getTime(),
-      });
     },
   },
 };

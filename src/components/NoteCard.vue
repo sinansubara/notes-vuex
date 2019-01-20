@@ -5,13 +5,13 @@
     <textarea type="text" v-model.lazy="singelNote.note" rows="5" cols="25"
         spellcheck="false" class="inputF"
         @change="write"
-        @blur="doneEdit()"
+        @blur="doneEdit(index)"
         v-show="singelNote.note === editNote" /><br><br><hr>
         <div class="card-footer">
         <span>{{singelNote.date}}</span> |
         <span>{{singelNote.time}}</span>
         </div>
-    <span @click="parentRemoveMethod(index)" class="button delete">DELETE</span>
+    <span @click="izbrisi(index)" class="button delete">DELETE</span>
     <span @click="edit()" class="button edit">EDIT</span>
   </div>
 </template>
@@ -20,7 +20,6 @@ export default {
   name: 'NoteCard',
   data() {
     return {
-      /* editTitle: '', */
       editNote: '',
     };
   },
@@ -33,31 +32,36 @@ export default {
       type: Number,
       required: true,
     },
-    parentRemoveMethod: {
-      type: Function,
-      required: true,
-    },
-    parentChangeMethod: {
-      type: Function,
-      required: true,
-    },
-    parentEditMethod: {
-      type: Function,
-      required: true,
-    },
   },
   methods: {
+    getDate() {
+      const date = new Date();
+      const mjesec = date.getMonth() + 1;
+      const datum = `${date.getDate()}.${mjesec}.${date.getFullYear()}`;
+      return datum;
+    },
+    getTime() {
+      const date = new Date();
+      const datum = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      return datum;
+    },
+    izbrisi(index) {
+      this.$store.dispatch('izbrisiNote', index);
+    },
     write() {
-      /* this.editTitle = this.singelNote.title; */
       this.editNote = this.singelNote.note;
     },
     edit() {
-      /* this.editTitle = this.singelNote.title; */
       this.editNote = this.singelNote.note;
     },
-    doneEdit() {
-      this.parentEditMethod(this.index, /* this.editTitle, */ this.editNote);
-      /* this.editTitle = ''; */
+    doneEdit(index) {
+      const temp = {
+        note: this.editNote,
+        title: this.singelNote.title,
+        date: this.getDate(),
+        time: this.getTime(),
+      };
+      this.$store.dispatch('editujNote', [index, temp]);
       this.editNote = '';
     },
   },
