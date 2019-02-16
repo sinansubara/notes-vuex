@@ -19,12 +19,8 @@ export default {
       activeEdit: '',
     };
   },
-  props: {
-  },
   components: {
     NoteCard,
-  },
-  methods: {
   },
   computed: {
     vuexNotes() {

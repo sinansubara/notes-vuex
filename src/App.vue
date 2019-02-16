@@ -15,8 +15,6 @@ export default {
     InputFields,
     NotesDisplay,
   },
-  methods: {
-  },
 };
 </script>
 <style lang="scss">
